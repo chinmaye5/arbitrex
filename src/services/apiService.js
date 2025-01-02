@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+//public available apis of major crypto CEX
 const ENDPOINTS = {
   BINANCE: 'https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT',
   COINBASE: 'https://api.coinbase.com/v2/prices/BTC-USD/spot',
