@@ -22,8 +22,36 @@ const CryptoPriceList = () => {
   }, []);
 
   const identifyArbitrageOpportunities = () => {
-    // Logic to identify arbitrage opportunities based on prices
-  };
+    const arbitrageOpportunities = [];
+  
+    // Group prices by cryptocurrency
+    const groupedPrices = prices.reduce((acc, price) => {
+      if (!acc[price.name]) {
+        acc[price.name] = [];
+      }
+      acc[price.name].push({ exchange: price.exchange, price: price.current_price });
+      return acc;
+    }, {});
+  
+    // Find arbitrage opportunities
+    for (const [crypto, priceList] of Object.entries(groupedPrices)) {
+      if (priceList.length > 1) {
+        const sortedPrices = priceList.sort((a, b) => a.price - b.price);
+        const lowest = sortedPrices[0];
+        const highest = sortedPrices[sortedPrices.length - 1];
+  
+        const potentialProfit = highest.price - lowest.price;
+        if (potentialProfit > 0) {
+          arbitrageOpportunities.push({
+            crypto,
+            buyFrom: lowest.exchange,
+            sellTo: highest.exchange,
+            profit: potentialProfit,
+          });
+        }
+      }
+    }
+  }
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error fetching prices: {error.message}</div>;
@@ -39,7 +67,20 @@ const CryptoPriceList = () => {
         ))}
       </ul>
       {identifyArbitrageOpportunities()}
+      <div>
+      <h3>Arbitrage Opportunities</h3>
+      <ul>
+        {arbitrageOpportunities.map((opportunity, index) => (
+          <li key={index}>
+            {opportunity.crypto}: Buy from {opportunity.buyFrom} at $
+            {opportunity.profit.toFixed(2)} and sell to {opportunity.sellTo} for a profit of $
+            {opportunity.profit.toFixed(2)}.
+          </li>
+        ))}
+      </ul>
     </div>
+    </div>
+    
   );
 };
 
