@@ -1,0 +1,187 @@
+.price-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+  }
+  
+  .card-header {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .header-content h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .volume-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background: #f8fafc;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .volume-toggle:hover {
+    background: #f1f5f9;
+    color: #334155;
+  }
+  
+  .arbitrage-info {
+    display: flex;
+    gap: 24px;
+    padding-top: 12px;
+    border-top: 1px solid #eee;
+  }
+  
+  .arbitrage-detail {
+    display: flex;
+    gap: 8px;
+    color: #64748b;
+    font-size: 0.875rem;
+  }
+  
+  .price-value {
+    font-weight: 600;
+    color: #334155;
+  }
+  
+  .card-content {
+    padding: 20px;
+  }
+  
+  .price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    transition: all 0.2s;
+  }
+  
+  .price-row:hover {
+    background: #f1f5f9;
+  }
+  
+  .price-row:last-child {
+    margin-bottom: 0;
+  }
+  
+  .exchange-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .exchange-name {
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .volume-info {
+    font-size: 0.875rem;
+    color: #64748b;
+  }
+  
+  .price-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .current-price {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #334155;
+  }
+  
+  .price-change {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+  
+  .price-change.positive {
+    color: #10b981;
+    background: #ecfdf5;
+  }
+  
+  .price-change.negative {
+    color: #ef4444;
+    background: #fef2f2;
+  }
+  
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #333;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 40px auto;
+  }
+  
+  .error-message {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ef4444;
+    padding: 20px;
+    justify-content: center;
+  }
+  
+  .card-footer {
+    padding: 12px 20px;
+    border-top: 1px solid #eee;
+  }
+  
+  .update-info {
+    font-size: 0.875rem;
+    color: #64748b;
+    text-align: center;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  /* Add these new styles to your existing Prices.css file */
+
+.update-error {
+    color: #ef4444;
+    margin-left: 8px;
+  }
+  
+  .price-row {
+    animation: fadeIn 0.3s ease-in;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0.8;
+    }
+    to {
+      opacity: 1;
+    }
+  }
