@@ -1,0 +1,15 @@
+.app-container {
+    margin-left: 250px;
+    padding: 20px;
+  }
+  
+  .content {
+    margin-top: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .app-container {
+      margin-left: 0;
+    }
+  }
+  
