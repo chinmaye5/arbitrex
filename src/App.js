@@ -1,28 +1,53 @@
 import React, { useState } from 'react';
-import Navbar from './components/Navbar';
-import Sidebar from './components/Sidebar';
+import './app.css';
 import Prices from './components/Prices';
-
+import NewsCard from './components/News';
 
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
-
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Navbar */}
-      <Navbar
-        toggleSidebar={toggleSidebar}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-      />
+    <div className="app">
+      <nav className="navbar">
+        <div className="nav-left">
+          <button 
+            className="menu-button"
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          >
+            ☰
+          </button>
+          <h1 className="logo">Arbitrex</h1>
+        </div>
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="search-input"
+          />
+        </div>
+      </nav>
 
-      {/* Sidebar */}
-      <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
+        <button 
+          className="close-button"
+          onClick={() => setIsSidebarOpen(false)}
+        >
+          ×
+        </button>
+        <ul className="sidebar-menu">
+          <li>News</li>
+          <li>Top 30</li>
+          <li>Ranks</li>
+        </ul>
+      </div>
 
-      <Prices></Prices>
+      <div className="content-wrapper">
+        <Prices></Prices>
+        <NewsCard></NewsCard>
+      </div>
     </div>
   );
 };
