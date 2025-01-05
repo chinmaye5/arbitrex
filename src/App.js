@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './app.css';
 import Prices from './components/Prices';
-import NewsCard from './components/News';
+import NewsSearch from './components/News';
 
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -46,7 +46,7 @@ const App = () => {
 
       <div className="content-wrapper">
         <Prices></Prices>
-        <NewsCard></NewsCard>
+        <NewsSearch></NewsSearch>
       </div>
     </div>
   );
