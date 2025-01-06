@@ -1,55 +1,13 @@
-import React, { useState } from 'react';
-import './app.css';
-import Prices from './components/Prices';
-import NewsSearch from './components/News';
+import React from 'react';
+import LandingPage from './components/LandingPage';
+import styles from "../src/index.css"
 
 const App = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-
   return (
-    <div className="app">
-      <nav className="navbar">
-        <div className="nav-left">
-          <button 
-            className="menu-button"
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          >
-            ☰
-          </button>
-          <h1 className="logo">Arbitrex</h1>
-        </div>
-        <div className="search-container">
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="search-input"
-          />
-        </div>
-      </nav>
-
-      <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
-        <button 
-          className="close-button"
-          onClick={() => setIsSidebarOpen(false)}
-        >
-          ×
-        </button>
-        <ul className="sidebar-menu">
-          <li>News</li>
-          <li>Top 30</li>
-          <li>Ranks</li>
-        </ul>
-      </div>
-
-      <div className="content-wrapper">
-        <Prices></Prices>
-        <NewsSearch></NewsSearch>
-      </div>
-    </div>
+    <LandingPage />
   );
 };
 
 export default App;
+
+
