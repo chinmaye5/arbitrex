@@ -1,0 +1,69 @@
+.exchanges-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.exchanges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjusts column count automatically */
+  gap: 20px;
+  margin-top: 20px;
+  justify-items: center; /* Center aligns items */
+}
+
+.exchange-card {
+  padding: 15px;
+  text-align: center;
+  width: 100%; /* Make the card adapt to available space */
+  max-width: 270px; /* Set a max width for cards */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.exchange-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.exchange-logo {
+  height: 100px;
+  max-width: 100%; /* Ensures logo doesn't exceed card width */
+  object-fit: contain; /* Keeps logo proportions */
+  margin-bottom: 10px;
+}
+
+.exchange-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #1d4ed8;
+}
+
+/* Add responsiveness for smaller devices */
+@media screen and (max-width: 768px) {
+  .exchanges-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Adjust for smaller screens */
+    gap: 15px; /* Reduce gap for compact view */
+  }
+
+  .exchange-logo {
+    height: 80px; /* Smaller logos for smaller screens */
+  }
+
+  .exchange-name {
+    font-size: 14px; /* Adjust font size for smaller devices */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .exchanges-container {
+    padding: 15px; /* Reduce padding for very small devices */
+  }
+
+  .exchange-card {
+    max-width: 200px; /* Compact card size for narrow screens */
+  }
+
+  .exchange-name {
+    font-size: 12px; /* Further reduce font size */
+  }
+}
