@@ -10,7 +10,7 @@
     /* Light Theme Colors */
     --light-bg: #ffffff;
     --light-text: #111827;
-    --light-border: #E5E7EB;
+    --light-border: #050505;
     --light-card: #F9FAFB;
     --light-hover: #F3F4F6;
     
@@ -65,6 +65,7 @@
   }
   
   /* Theme Styles */
+  
   .landing-page {
     min-height: 100vh;
     transition: background-color var(--transition-normal),
@@ -161,17 +162,18 @@
     gap: var(--space-md);
   }
   
-  .dark-mode-toggle {
+  .dark-mode-toggle-landing {
     padding: var(--space-sm);
     border-radius: var(--radius-full);
     border: none;
-    background: transparent;
+    background-color: var(--background-color);
+    background-color: rgba(107, 114, 128, 0.1);
     color: inherit;
     cursor: pointer;
     transition: background-color var(--transition-fast);
   }
   
-  .dark-mode-toggle:hover {
+  .dark-mode-toggle-landing:hover {
     background-color: rgba(107, 114, 128, 0.1);
   }
   
@@ -191,7 +193,6 @@
     background-color: var(--primary-hover);
     transform: translateY(-1px);
   }
-  
   /* Hero Section */
   .hero {
     padding: var(--space-2xl) 0;
@@ -475,7 +476,7 @@
       position: static;
     }
     
-    .dark-mode-toggle,
+    .dark-mode-toggle-landing,
     .login-button,
     .cta-button {
       display: none;

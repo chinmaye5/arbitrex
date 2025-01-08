@@ -61,7 +61,7 @@ const LandingPage = () => {
           <div className="header-actions">
             <button
               onClick={() => setDarkMode(!darkMode)}
-              className="dark-mode-toggle"
+              className="dark-mode-toggle-landing"
               aria-label="Toggle Dark Mode"
             >
               {darkMode ? <Sun size={20} /> : <Moon size={20} />}
