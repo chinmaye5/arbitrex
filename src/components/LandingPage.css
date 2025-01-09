@@ -85,7 +85,7 @@
   /* Layout Components */
   .container {
     width: 100%;
-    max-width: 1280px;
+    
     margin: 0 auto;
     padding: 0 var(--space-md);
   }
@@ -121,7 +121,7 @@
   
   .logo {
     font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: bold;
     letter-spacing: -0.025em;
     background: linear-gradient(135deg, var(--primary-color), #60A5FA);
     -webkit-background-clip: text;
@@ -197,12 +197,14 @@
   .hero {
     padding: var(--space-2xl) 0;
     margin-top: 4.5rem;
+    height: 400px;
   }
   
   .hero-title {
     font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 800;
     line-height: 1.1;
+    padding: 10px;
     margin-bottom: var(--space-lg);
     background: linear-gradient(135deg, var(--primary-color), #60A5FA);
     -webkit-background-clip: text;
