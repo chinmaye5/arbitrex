@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
 import { Moon, Sun, Menu, Home, LineChart, History, Settings } from 'lucide-react';
+import CryptoPriceTracker from './Prices';
 import './Dashboard.css';
 
 // Content Components
@@ -139,7 +140,7 @@ const Dashboard = () => {
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard/overview" replace />} />
           <Route path="/overview" element={<DashboardContent />} />
-          <Route path="/trading" element={<TradingContent />} />
+          <Route path="/trading" element={<CryptoPriceTracker />} />
           <Route path="/history" element={<HistoryContent />} />
           <Route path="/settings" element={<SettingsContent />} />
         </Routes>
