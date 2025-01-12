@@ -95,7 +95,7 @@ const Dashboard = () => {
 
   const navItems = [
     { path: '/dashboard/overview', name: 'Dashboard', icon: Home },
-    { path: '/dashboard/trading', name: 'Trading', icon: LineChart },
+    { path: '/dashboard/trading', name: 'Arbitrage table', icon: LineChart },
     { path: '/dashboard/history', name: 'History', icon: History },
     { path: '/dashboard/settings', name: 'Settings', icon: Settings },
   ];
