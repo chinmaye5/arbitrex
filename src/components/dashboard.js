@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
 import { Moon, Sun, Menu, Home, LineChart, History, Settings } from 'lucide-react';
 import CryptoArbitrageTracker from './Prices';
+import CryptoNews from './News';
 import './Dashboard.css';
 
 // Content Components
@@ -141,7 +142,7 @@ const Dashboard = () => {
           <Route path="/" element={<Navigate to="/dashboard/overview" replace />} />
           <Route path="/overview" element={<DashboardContent />} />
           <Route path="/trading" element={<CryptoArbitrageTracker/>} />
-          <Route path="/history" element={<HistoryContent />} />
+          <Route path="/history" element={<CryptoNews />} />
           <Route path="/settings" element={<SettingsContent />} />
         </Routes>
       </main>
