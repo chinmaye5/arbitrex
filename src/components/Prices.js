@@ -170,6 +170,141 @@ const CryptoArbitrageTracker = () => {
     }
   };
 
+  const fetchKucoinPrices = async () => {
+    try {
+        const response = await fetch('https://api.kucoin.com/api/v1/market/allTickers');
+        const data = await response.json();
+        if (data.code === '200000' && data.data.ticker) {
+            return data.data.ticker
+                .filter(item => TRADING_PAIRS.some(pair => item.symbol === `${pair}-USDT`))
+                .map(item => ({
+                    symbol: item.symbol.replace('-USDT', ''),
+                    price: parseFloat(item.last),
+                    exchange: 'KuCoin',
+                }));
+        }
+        console.log(data)
+        return [];
+    } catch (error) {
+        console.error('KuCoin fetch error:', error);
+        return [];
+    }
+  };
+
+  const fetchBitfinexPrices = async () => {
+    try {
+        const response = await fetch('https://api-pub.bitfinex.com/v2/tickers?symbols=ALL');
+        const data = await response.json();
+        return data
+            .filter(item => item[0].endsWith('USDT') && TRADING_PAIRS.some(pair => item[0] === `t${pair}USDT`))
+            .map(item => ({
+                symbol: item[0].replace('t', '').replace('USDT', ''),
+                price: parseFloat(item[7]), // The price is at index 7 in the response
+                exchange: 'Bitfinex',
+            }));
+    } catch (error) {
+        console.error('Bitfinex fetch error:', error);
+        return [];
+    }
+};
+
+const fetchOkxPrices = async () => {
+  try {
+      const response = await fetch('https://www.okx.com/api/v5/market/tickers?instType=SPOT');
+      const data = await response.json();
+      if (data.code === '0' && data.data) {
+          return data.data
+              .filter(item => TRADING_PAIRS.some(pair => item.instId === `${pair}-USDT`))
+              .map(item => ({
+                  symbol: item.instId.replace('-USDT', ''),
+                  price: parseFloat(item.last),
+                  exchange: 'OKX',
+              }));
+      }
+      return [];
+  } catch (error) {
+      console.error('OKX fetch error:', error);
+      return [];
+  }
+};
+
+const fetchKrakenPrices = async () => {
+  try {
+      const response = await fetch('https://api.kraken.com/0/public/Ticker?pair=USDT');
+      const data = await response.json();
+      if (data.error && data.error.length === 0 && data.result) {
+          const result = Object.entries(data.result);
+          return result
+              .filter(([key]) => TRADING_PAIRS.some(pair => key.startsWith(pair)))
+              .map(([key, value]) => ({
+                  symbol: key.replace('USDT', ''),
+                  price: parseFloat(value.c[0]), // 'c' contains the current price
+                  exchange: 'Kraken',
+              }));
+      }
+      return [];
+  } catch (error) {
+      console.error('Kraken fetch error:', error);
+      return [];
+  }
+};
+
+
+const fetchGateioPrices = async () => {
+  try {
+      const response = await fetch('https://api.gateio.ws/api/v4/spot/tickers');
+      const data = await response.json();
+      return data
+          .filter(item => TRADING_PAIRS.some(pair => item.currency_pair === `${pair}_USDT`))
+          .map(item => ({
+              symbol: item.currency_pair.replace('_USDT', ''),
+              price: parseFloat(item.last),
+              exchange: 'Gate.io',
+          }));
+  } catch (error) {
+      console.error('Gate.io fetch error:', error);
+      return [];
+  }
+};
+
+const fetchCryptoComPrices = async () => {
+  try {
+      const response = await fetch('https://api.crypto.com/v2/public/get-ticker');
+      const data = await response.json();
+      if (data.code === 0 && data.result.data) {
+          return data.result.data
+              .filter(item => TRADING_PAIRS.some(pair => item.i === `${pair}_USDT`))
+              .map(item => ({
+                  symbol: item.i.replace('_USDT', ''),
+                  price: parseFloat(item.a), // 'a' contains the last traded price
+                  exchange: 'Crypto.com',
+              }));
+      }
+      return [];
+  } catch (error) {
+      console.error('Crypto.com fetch error:', error);
+      return [];
+  }
+};
+
+const fetchPoloniexPrices = async () => {
+  try {
+      const response = await fetch('https://api.poloniex.com/markets/tickers');
+      const data = await response.json();
+      return Object.entries(data)
+          .filter(([key]) => TRADING_PAIRS.some(pair => key === `${pair}_USDT`))
+          .map(([key, value]) => ({
+              symbol: key.replace('_USDT', ''),
+              price: parseFloat(value.last),
+              exchange: 'Poloniex',
+          }));
+  } catch (error) {
+      console.error('Poloniex fetch error:', error);
+      return [];
+  }
+};
+
+
   const processPrices = (allPrices) => {
     const groupedPrices = {};
 
@@ -196,19 +331,53 @@ const CryptoArbitrageTracker = () => {
   const fetchAllPrices = async () => {
     setLoading(true);
     try {
-      const [binancePrices, coinbasePrices, huobiPrices, geminiPrices, bybitPrices, bitmartPrices] = await Promise.all([
+      const [
+        binancePrices,
+        coinbasePrices,
+        huobiPrices,
+        geminiPrices,
+        bybitPrices,
+        bitmartPrices,
+        kucoinPrices,
+        bitfinexPrices,
+        krakenPrices,
+        okxPrices,
+        gateioPrices,
+        cryptocomPrices,
+        poloniexPrices
+    ] = await Promise.all([
         fetchBinancePrices(),
         fetchCoinbasePrices(),
         fetchHuobiPrices(),
         fetchGeminiPrices(),
         fetchBybitPrices(),
         fetchBitmartPrices(),
-      ]);
+        fetchKucoinPrices(),
+        fetchBitfinexPrices(),
+        fetchKrakenPrices(),
+        fetchOkxPrices(),
+        fetchGateioPrices(),
+        fetchCryptoComPrices(),
+        fetchPoloniexPrices(),
+    ]);
+    
 
-      const allPrices = [
-        ...binancePrices, ...coinbasePrices, ...huobiPrices, 
-        ...geminiPrices, ...bybitPrices, ...bitmartPrices
-      ];
+    const allPrices = [
+      ...binancePrices,
+      ...coinbasePrices,
+      ...huobiPrices,
+      ...geminiPrices,
+      ...bybitPrices,
+      ...bitmartPrices,
+      ...kucoinPrices,
+      ...bitfinexPrices,
+      ...krakenPrices,
+      ...okxPrices,
+      ...gateioPrices,
+      ...cryptocomPrices,
+      ...poloniexPrices,
+    ];
+  
       const processedData = processPrices(allPrices);
       setData(processedData);
       setError(null);
@@ -253,7 +422,7 @@ const CryptoArbitrageTracker = () => {
       </div>
 
       <div style={styles.tableContainer}>
-        <table style={styles.table}>
+      <table style={styles.table}>
           <thead>
             <tr>
               <th style={styles.th}>Symbol</th>
@@ -263,6 +432,13 @@ const CryptoArbitrageTracker = () => {
               <th style={styles.th}>Gemini Price</th>
               <th style={styles.th}>Bybit Price</th>
               <th style={styles.th}>Bitmart Price</th>
+              <th style={styles.th}>KuCoin Price</th>
+              <th style={styles.th}>Bitfinex Price</th>
+              <th style={styles.th}>Kraken Price</th>
+              <th style={styles.th}>OKX Price</th>
+              <th style={styles.th}>Gate.io Price</th>
+              <th style={styles.th}>Crypto.com Price</th>
+              <th style={styles.th}>Poloniex Price</th>
               <th style={styles.th} onClick={() => sortData('highestPrice')}>
                 Highest <span style={styles.sortIcon}>↕</span>
               </th>
@@ -284,6 +460,13 @@ const CryptoArbitrageTracker = () => {
                 <td style={styles.td}>${crypto.exchanges.Gemini?.toFixed(2) || 'N/A'}</td>
                 <td style={styles.td}>${crypto.exchanges.Bybit?.toFixed(2) || 'N/A'}</td>
                 <td style={styles.td}>${crypto.exchanges.Bitmart?.toFixed(2) || 'N/A'}</td>
+                <td style={styles.td}>${crypto.exchanges.Kucoin?.toFixed(2) || 'N/A'}</td>
+                <td style={styles.td}>${crypto.exchanges.Bitfinex?.toFixed(2) || 'N/A'}</td>
+                <td style={styles.td}>${crypto.exchanges.Kraken?.toFixed(2) || 'N/A'}</td>
+                <td style={styles.td}>${crypto.exchanges.OKX?.toFixed(2) || 'N/A'}</td>
+                <td style={styles.td}>${crypto.exchanges['Gate.io']?.toFixed(2) || 'N/A'}</td>
+                <td style={styles.td}>${crypto.exchanges['Crypto.com']?.toFixed(2) || 'N/A'}</td>
+                <td style={styles.td}>${crypto.exchanges.Poloniex?.toFixed(2) || 'N/A'}</td>
                 <td style={styles.td}>${crypto.highestPrice.toFixed(2)}</td>
                 <td style={styles.td}>${crypto.lowestPrice.toFixed(2)}</td>
                 <td style={styles.td}>
@@ -295,6 +478,7 @@ const CryptoArbitrageTracker = () => {
             ))}
           </tbody>
         </table>
+
         {loading && <p style={styles.loading}>Fetching new data...</p>}
       </div>
     </div>
