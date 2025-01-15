@@ -112,7 +112,19 @@ const Dashboard = () => {
           >
             <Menu size={24} />
           </button>
-          <span>ARBITREX</span>
+          <span>
+          <Link 
+            to="/" 
+            style={{ 
+              textDecoration: 'none',  // Removes underline
+              color: 'inherit',        // Inherits the color from the parent
+              fontWeight: 'inherit',   // Inherits the font weight from the parent
+              display: 'inline'        // Keeps it inline with surrounding elements
+            }}
+          >
+            ARBITREX
+          </Link>
+          </span>
         </div>
         <div className="navbar-actions">
           <button
