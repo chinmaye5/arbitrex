@@ -1,5 +1,13 @@
 /* From Uiverse.io by JohnnyCSilva */ 
 
+.auth-container{
+  display: flex;
+    height: 100vh;
+    width: 100vw;
+    background-color: #111827;
+    align-items: center;
+    justify-content: center;
+}
 .form {
     display: flex;
     flex-direction: column;

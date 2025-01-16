@@ -1,7 +1,7 @@
 // Dashboard.js
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
-import { Moon, Sun, Menu, Home, LineChart, History, Settings } from 'lucide-react';
+import { Moon, Sun, Menu, Home, LineChart, Settings,Newspaper } from 'lucide-react';
 import CryptoArbitrageTracker from './Prices';
 import CryptoNews from './News';
 import './Dashboard.css';
@@ -15,21 +15,6 @@ const DashboardContent = () => (
   </div>
 );
 
-const TradingContent = () => (
-  <div>
-    <h1>Trading Platform</h1>
-    <p>Access your trading tools and market analysis here.</p>
-    {/* Add your trading content here */}
-  </div>
-);
-
-const HistoryContent = () => (
-  <div>
-    <h1>Trading History</h1>
-    <p>View your past trades and performance metrics.</p>
-    {/* Add your history content here */}
-  </div>
-);
 
 const SettingsContent = () => (
   <div>
@@ -97,7 +82,7 @@ const Dashboard = () => {
   const navItems = [
     { path: '/dashboard/overview', name: 'Dashboard', icon: Home },
     { path: '/dashboard/trading', name: 'Arbitrage table', icon: LineChart },
-    { path: '/dashboard/history', name: 'History', icon: History },
+    { path: '/dashboard/history', name: 'Latest news', icon: Newspaper },
     { path: '/dashboard/settings', name: 'Settings', icon: Settings },
   ];
 

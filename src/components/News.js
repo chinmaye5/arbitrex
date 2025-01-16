@@ -1,5 +1,6 @@
 import React from 'react';
 import { ExternalLink, Clock, ThumbsUp, TrendingUp, TrendingDown } from 'lucide-react';
+import './News.css';
 
 const CryptoNews = () => {
   const [news, setNews] = React.useState([]);
@@ -7,9 +8,44 @@ const CryptoNews = () => {
   const [error, setError] = React.useState(null);
 
   const analyzeSentiment = (item) => {
-    const bullishKeywords = ['surge', 'rally', 'bull', 'up', 'gain', 'growth', 'high', 'boost', 'positive'];
-    const bearishKeywords = ['crash', 'bear', 'down', 'fall', 'drop', 'low', 'decrease', 'negative', 'loss'];
-    
+    const bullishKeywords = [
+      // Price movements
+      'surge', 'rally', 'bull', 'up', 'gain', 'growth', 'high', 'boost', 'positive',
+      'soar', 'jump', 'climb', 'rise', 'rocket', 'moon', 'breakout', 'breakthrough',
+      'outperform', 'rebound', 'recover', 'bounce', 'momentum', 'uptrend', 'peak',
+      
+      // Market sentiment
+      'optimistic', 'confidence', 'strong', 'strength', 'promising', 'potential',
+      'support', 'backed', 'upgrade', 'buy', 'accumulate', 'long', 'bullrun',
+      
+      // Adoption/Development
+      'adoption', 'partnership', 'launch', 'upgrade', 'development', 'innovation',
+      'expand', 'integration', 'milestone', 'breakthrough', 'success', 'achieve',
+      
+      // Institutional
+      'institutional', 'investment', 'funding', 'backed', 'venture', 'accumulation',
+      'whale', 'institutional', 'stake', 'staking'
+  ];
+  
+  const bearishKeywords = [
+      // Price movements
+      'crash', 'bear', 'down', 'fall', 'drop', 'low', 'decrease', 'negative', 'loss',
+      'plunge', 'dump', 'sink', 'tumble', 'collapse', 'decline', 'slide', 'dip',
+      'plummet', 'tank', 'nosedive', 'downtrend', 'bottom', 'correction',
+      
+      // Market sentiment
+      'pessimistic', 'fear', 'weak', 'weakness', 'concern', 'worried', 'warning',
+      'risk', 'sell', 'short', 'bearish', 'capitulation', 'panic', 'downturn',
+      
+      // Problems/Issues
+      'hack', 'scam', 'fraud', 'investigation', 'lawsuit', 'sec', 'regulation',
+      'ban', 'restrict', 'crackdown', 'breach', 'vulnerability', 'exploit',
+      
+      // Market conditions
+      'volatility', 'inflation', 'recession', 'bubble', 'debt', 'crisis',
+      'liquidation', 'margin', 'resistance', 'overhead', 'correction'
+  ];
+  
     let score = 0;
     
     if (item.votes) {
@@ -32,7 +68,7 @@ const CryptoNews = () => {
   React.useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await fetch('https://cryptopanic.com/api/free/v1/posts/?auth_token=1ef39fd465bab737489a13ffb0fe73b633c0b295&public=true');
+        const response = await fetch('https://cryptopanic.com/api/free/v1/posts/?auth_token=1ef39fd465bab737489a13ffb0fe73b633c0b295');
         const data = await response.json();
         setNews(data.results || []);
       } catch (err) {
@@ -120,154 +156,7 @@ const CryptoNews = () => {
         })}
       </div>
       
-      <style jsx>{`
-        .news-container {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 20px;
-        }
-
-        h1 {
-          font-size: 2rem;
-          margin-bottom: 1.5rem;
-          color: #1d4ed8;
-        }
-
-        .news-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-          gap: 20px;
-        }
-
-        .news-card {
-          border-radius: 8px;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          padding: 20px;
-          display: flex;
-          flex-direction: column;
-          transition: box-shadow 0.3s ease;
-        }
-
-        .news-card:hover {
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        .card-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 15px;
-        }
-
-        .source-badge {
-          background: #2563eb;
-          padding: 4px 8px;
-          border-radius: 4px;
-          font-size: 0.8rem;
-          color: white;
-        }
-
-        .timestamp {
-          display: flex;
-          align-items: center;
-          gap: 5px;
-          font-size: 0.875rem;
-        }
-
-        .news-title {
-          font-size: 1.125rem;
-          font-weight: 600;
-          margin-bottom: 10px;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-
-        .sentiment-indicator {
-          margin: 10px 0;
-        }
-
-        .sentiment {
-          display: inline-flex;
-          align-items: center;
-          gap: 5px;
-          padding: 4px 8px;
-          border-radius: 4px;
-          font-size: 0.875rem;
-          font-weight: 500;
-        }
-
-        .sentiment.bullish {
-          background: #2563eb;
-          color: white;
-        }
-
-        .sentiment.bearish {
-          background: #dc2626;
-          color: white;
-        }
-
-        .sentiment.neutral {
-          background: #6b7280;
-          color: white;
-        }
-
-        .card-footer {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding-top: 15px;
-          border-top: 1px solid #eee;
-        }
-
-        .votes {
-          display: flex;
-          align-items: center;
-          gap: 5px;
-        }
-
-        .read-more {
-          display: flex;
-          align-items: center;
-          gap: 5px;
-          color: #2563eb;
-          text-decoration: none;
-          font-size: 0.9rem;
-        }
-
-        .read-more:hover {
-          color: #1d4ed8;
-        }
-
-        .icon {
-          width: 16px;
-          height: 16px;
-        }
-
-        .loading {
-          text-align: center;
-          padding: 40px;
-          font-size: 1.125rem;
-        }
-
-        .error {
-          text-align: center;
-          padding: 40px;
-          color: #dc2626;
-        }
-
-        @media (max-width: 768px) {
-          .news-grid {
-            grid-template-columns: 1fr;
-          }
-          
-          .news-container {
-            padding: 10px;
-          }
-        }
-      `}</style>
-    </div>
+      </div>
   );
 };
 

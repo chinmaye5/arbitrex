@@ -1,0 +1,146 @@
+.news-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #1d4ed8;
+  }
+
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .news-card {
+    border-radius: 9px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.3s ease;
+    border: 2px solid #1d4ed8;
+  }
+
+  .news-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .source-badge {
+    background: #2563eb;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: white;
+  }
+
+  .timestamp {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.875rem;
+  }
+
+  .news-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .sentiment-indicator {
+    margin: 10px 0;
+  }
+
+  .sentiment {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .sentiment.bullish {
+    background: rgb(88, 194, 88);
+    color: white;
+  }
+
+  .sentiment.bearish {
+    background: #dc2626;
+    color: white;
+  }
+
+  .sentiment.neutral {
+    background: #6b7280;
+    color: white;
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+  }
+
+  .votes {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .read-more {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #2563eb;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+
+  .read-more:hover {
+    color: #1d4ed8;
+  }
+
+  .icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .loading {
+    text-align: center;
+    padding: 40px;
+    font-size: 1.125rem;
+  }
+
+  .error {
+    text-align: center;
+    padding: 40px;
+    color: #dc2626;
+  }
+
+  @media (max-width: 768px) {
+    .news-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .news-container {
+      padding: 10px;
+    }
+  }

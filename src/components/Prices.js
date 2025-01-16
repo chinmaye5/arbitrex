@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { RefreshCw } from 'lucide-react';
+
+import './Prices.css';
 
 const TRADING_PAIRS = [
   'BTC', 'ETH', 'BNB', 'XRP', 'SOL', 'ADA', 'DOGE', 'MATIC',
@@ -396,77 +399,86 @@ const CryptoArbitrageTracker = () => {
 
   if (error) {
     return (
-      <div style={styles.container}>
-        <div style={styles.error}>{error}</div>
+      <div>
+        <div >{error}</div>
       </div>
     );
   }
 
   return (
-    <div style={styles.container}>
-      <div style={styles.header}>
-        <h2 style={styles.title}>Crypto Arbitrage Opportunities</h2>
+    <div className="container-prices">
+      <div className="header-prices">
+        <h1 className="title-prices">Crypto Arbitrage Opportunities</h1>
         <button
           onClick={fetchAllPrices}
-          style={styles.refreshButton}
+          className="refresh-button-prices"
           disabled={loading}
         >
-          ↻ {loading && 'Refreshing...'}
+          
+          {loading ? 'Refreshing...' : 'Refresh'}
         </button>
       </div>
 
-      <div style={styles.tableContainer}>
-      <table style={styles.table}>
+      <div className="table-container-prices">
+        <table className="table-prices">
           <thead>
             <tr>
-              <th style={styles.th}>Symbol</th>
-              <th style={styles.th}>Binance Price</th>
-              <th style={styles.th}>Coinbase Price</th>
-              <th style={styles.th}>Huobi Price</th>
-              <th style={styles.th}>Gemini Price</th>
-              <th style={styles.th}>Bybit Price</th>
-              <th style={styles.th}>Bitmart Price</th>
-              <th style={styles.th}>KuCoin Price</th>
-              <th style={styles.th}>Bitfinex Price</th>
-              <th style={styles.th}>OKX Price</th>
-              <th style={styles.th}>Gate.io Price</th>
-              
-              <th style={styles.th} onClick={() => sortData('lowestPrice')}>
-                Lowest <span style={styles.sortIcon}>↕</span>
+              <th>Symbol</th>
+              <th>Binance Price</th>
+              <th>Coinbase Price</th>
+              <th>Huobi Price</th>
+              <th>Gemini Price</th>
+              <th>Bybit Price</th>
+              <th>Bitmart Price</th>
+              <th>KuCoin Price</th>
+              <th>Bitfinex Price</th>
+              <th>OKX Price</th>
+              <th>Gate.io Price</th>
+              <th onClick={() => sortData('lowestPrice')}>
+                Lowest <span className="sort-icon-prices">↕</span>
               </th>
-              <th style={styles.th} onClick={() => sortData('highestPrice')}>
-                Highest <span style={styles.sortIcon}>↕</span>
+              <th onClick={() => sortData('highestPrice')}>
+                Highest <span className="sort-icon-prices">↕</span>
               </th>
-              
-              <th style={styles.th} onClick={() => sortData('arbitragePercent')}>
-                Arbitrage % <span style={styles.sortIcon}>↕</span>
+              <th onClick={() => sortData('arbitragePercent')}>
+                Arbitrage % <span className="sort-icon-prices">↕</span>
               </th>
             </tr>
           </thead>
           <tbody>
             {data.map((crypto) => (
               <tr key={crypto.symbol}>
-                <td style={styles.td}>{crypto.symbol}</td>
-                <td style={styles.td}>${crypto.exchanges.Binance?.toFixed(2) || 'N/A'}</td>
-                <td style={styles.td}>${crypto.exchanges.Coinbase?.toFixed(2) || 'N/A'}</td>
-                <td style={styles.td}>${crypto.exchanges.Huobi?.toFixed(2) || 'N/A'}</td>
-                <td style={styles.td}>${crypto.exchanges.Gemini?.toFixed(2) || 'N/A'}</td>
-                <td style={styles.td}>${crypto.exchanges.Bybit?.toFixed(2) || 'N/A'}</td>
-                <td style={styles.td}>${crypto.exchanges.Bitmart?.toFixed(2) || 'N/A'}</td>
-                <td style={styles.td}>${crypto.exchanges.Kucoin?.toFixed(2) || 'N/A'}</td>
-                <td style={styles.td}>${crypto.exchanges.Bitfinex?.toFixed(2) || 'N/A'}</td>
-                <td style={styles.td}>${crypto.exchanges.OKX?.toFixed(2) || 'N/A'}</td>
-                <td style={styles.td}>${crypto.exchanges['Gate.io']?.toFixed(2) || 'N/A'}</td>
-                <td style={{ ...styles.td, color: 'green', fontWeight: 'bold' }}>
-                  ${crypto.lowestPrice.toFixed(4)} ({crypto.lowestPriceExchange})
+                <td>{crypto.symbol}</td>
+                <td>${crypto.exchanges.Binance?.toFixed(2) || 'N/A'}</td>
+                <td>${crypto.exchanges.Coinbase?.toFixed(2) || 'N/A'}</td>
+                <td>${crypto.exchanges.Huobi?.toFixed(2) || 'N/A'}</td>
+                <td>${crypto.exchanges.Gemini?.toFixed(2) || 'N/A'}</td>
+                <td>${crypto.exchanges.Bybit?.toFixed(2) || 'N/A'}</td>
+                <td>${crypto.exchanges.Bitmart?.toFixed(2) || 'N/A'}</td>
+                <td>${crypto.exchanges.Kucoin?.toFixed(2) || 'N/A'}</td>
+                <td>${crypto.exchanges.Bitfinex?.toFixed(2) || 'N/A'}</td>
+                <td>${crypto.exchanges.OKX?.toFixed(2) || 'N/A'}</td>
+                <td>${crypto.exchanges['Gate.io']?.toFixed(2) || 'N/A'}</td>
+                <td className="arbitrage-low-prices">
+                  ${crypto.lowestPrice.toFixed(4)}
+                  <span className="exchange-name-prices">
+                    ({crypto.lowestPriceExchange})
+                  </span>
                 </td>
-                <td style={{ ...styles.td, color: 'red', fontWeight: 'bold' }}>
-                  ${crypto.highestPrice.toFixed(4)} ({crypto.highestPriceExchange})
+                <td className="arbitrage-high-prices">
+                  ${crypto.highestPrice.toFixed(4)}
+                  <span className="exchange-name-prices">
+                    ({crypto.highestPriceExchange})
+                  </span>
                 </td>
-                
-
-                <td style={styles.td}>
-                  <span style={crypto.arbitragePercent > 1 ? styles.arbitrageHigh : {}}>
+                <td>
+                  <span
+                    className={
+                      crypto.arbitragePercent > 1
+                        ? 'arbitrage-high-prices'
+                        : ''
+                    }
+                  >
                     {crypto.arbitragePercent}%
                   </span>
                 </td>
@@ -475,71 +487,16 @@ const CryptoArbitrageTracker = () => {
           </tbody>
         </table>
 
-        {loading && <p style={styles.loading}>Fetching new data...</p>}
+        {loading && (
+          <div className="loading-prices">
+            <RefreshCw className="loading-spinner-prices" />
+            Fetching new data...
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
 export default CryptoArbitrageTracker;
-
-const styles = {
-  container: {
-    padding: '20px',
-    fontFamily: 'Arial, sans-serif',
-  },
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-  },
-  refreshButton: {
-    padding: '8px 16px',
-    fontSize: '1rem',
-    cursor: 'pointer',
-    backgroundColor: '#007BFF',
-    color: '#FFF',
-    border: 'none',
-    borderRadius: '5px',
-  },
-  tableContainer: {
-    marginTop: '20px',
-    overflowX: 'auto',
-  },
-  table: {
-    width: '100%',
-    borderCollapse: 'collapse',
-  },
-  th: {
-    padding: '10px',
-    textAlign: 'left',
-    borderBottom: '2px solid #DDD',
-    cursor: 'pointer',
-  },
-  td: {
-    padding: '10px',
-    borderBottom: '1px solid #DDD',
-  },
-  sortIcon: {
-    marginLeft: '8px',
-    fontSize: '0.9rem',
-  },
-  arbitrageHigh: {
-    color: 'green',
-    fontWeight: 'bold',
-  },
-  error: {
-    color: 'red',
-    fontSize: '1.2rem',
-  },
-  loading: {
-    marginTop: '10px',
-    fontSize: '1rem',
-    color: '#666',
-  },
-};
 

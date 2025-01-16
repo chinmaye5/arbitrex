@@ -1,0 +1,88 @@
+.container-prices {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .header-prices {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .title-prices {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1d4ed8;
+  }
+  
+  .refresh-button-prices {
+    padding: 8px 16px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #007BFF;
+    color: #FFF;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .refresh-button-prices:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+  }
+  
+  .table-container-prices {
+    margin-top: 20px;
+    overflow-x: auto;
+  }
+  
+  .table-prices {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table-prices th,
+  .table-prices td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #DDD;
+  }
+  
+  .sort-icon-prices {
+    margin-left: 8px;
+    font-size: 0.9rem;
+  }
+
+  .sort-icon-prices:hover {
+    cursor: pointer;
+  }
+  
+  .arbitrage-low-prices {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .arbitrage-high-prices {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .loading-prices {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  .loading-spinner-prices {
+    margin-right: 8px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
