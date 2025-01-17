@@ -4,6 +4,7 @@ import { Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
 import { Moon, Sun, Menu, Home, LineChart, Settings,Newspaper } from 'lucide-react';
 import CryptoArbitrageTracker from './Prices';
 import CryptoNews from './News';
+import CryptoPricesDashboard from './test';
 import './Dashboard.css';
 
 // Content Components
@@ -140,7 +141,7 @@ const Dashboard = () => {
           <Route path="/overview" element={<DashboardContent />} />
           <Route path="/trading" element={<CryptoArbitrageTracker/>} />
           <Route path="/history" element={<CryptoNews />} />
-          <Route path="/settings" element={<SettingsContent />} />
+          <Route path="/settings" element={<CryptoPricesDashboard></CryptoPricesDashboard>} />
         </Routes>
       </main>
     </div>
