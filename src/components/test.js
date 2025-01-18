@@ -73,7 +73,7 @@ const PriceComparisonDashboard = () => {
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead>
+            <thead> 
               <tr className="bg-gray-50">
                 <th className="p-3 text-left font-semibold">Symbol</th>
                 <th className="p-3 text-right font-semibold">Gate.io</th>

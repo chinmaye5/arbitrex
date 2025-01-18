@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { RefreshCw } from 'lucide-react';
+import fetchBinancePrices from './apis/fetchBinancePrices'
+import fetchCoinbasePrices from './apis/fetchCoinbasePrices'
 
 import './Prices.css';
 
@@ -23,51 +25,7 @@ const CryptoArbitrageTracker = () => {
     const minPrice = Math.min(...prices);
     return ((maxPrice - minPrice) / minPrice * 100).toFixed(2);
   };
-  const fetchBinancePrices = async () => {
-    try {
-      const response = await fetch('https://api.binance.com/api/v3/ticker/price');
-      const data = await response.json();
-      return data
-        .filter(item => TRADING_PAIRS.some(pair => item.symbol === `${pair}USDT`))
-        .map(item => ({
-          symbol: item.symbol.replace('USDT', ''),
-          price: parseFloat(item.price),
-          exchange: 'Binance',
-        }));
-    } catch (error) {
-      console.error('Binance fetch error:', error);
-      return [];
-    }
-  };
 
-  const fetchCoinbasePrices = async () => {
-    try {
-      const symbols = TRADING_PAIRS.map(pair => `${pair}-USD`);
-      const prices = await Promise.all(
-        symbols.map(async (symbol) => {
-          try {
-            const response = await fetch(`https://api.exchange.coinbase.com/products/${symbol}/ticker`);
-            const data = await response.json();
-            if (data.price) {
-              return {
-                symbol: symbol.split('-')[0],
-                price: parseFloat(data.price),
-                exchange: 'Coinbase',
-              };
-            }
-            return null;
-          } catch (error) {
-            console.error(`Error fetching ${symbol} from Coinbase:`, error);
-            return null;
-          }
-        })
-      );
-      return prices.filter(price => price !== null);
-    } catch (error) {
-      console.error('Coinbase fetch error:', error);
-      return [];
-    }
-  };
 
   const fetchHuobiPrices = async () => {
     try {
@@ -388,7 +346,7 @@ const CryptoArbitrageTracker = () => {
 
   useEffect(() => {
     fetchAllPrices();
-    const interval = setInterval(fetchAllPrices, 10000); // Refresh every 10 seconds
+    const interval = setInterval(fetchAllPrices, 10000);
     return () => clearInterval(interval);
   }, []);
 
