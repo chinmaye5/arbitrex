@@ -6,39 +6,34 @@ const TRADING_PAIRS = [
     'CRV', 'KLAY', 'IMX', 'CHZ', 'SNX', 'ENJ', 'STX', 'FLOW', 
     'XTZ', 'EGLD', 'ZIL', 'KAVA', 'LDO', 'RUNE', 'DYDX', 'CAKE'
   ];
-  
-  const fetchCoinbasePrices = async () => {
+
+const fetchHuobiPrices = async () => {
     try {
-      const symbols = TRADING_PAIRS.map(pair => `${pair}-USD`);
+      const symbols = TRADING_PAIRS.map(pair => pair.toLowerCase() + 'usdt');
       const prices = await Promise.all(
         symbols.map(async (symbol) => {
           try {
-            const response = await fetch(`https://api.exchange.coinbase.com/products/${symbol}/ticker`);
-            if (!response.ok) {
-              console.warn(`Ticker ${symbol} may not exist on Coinbase.`);
-              return null;
-            }
+            const response = await fetch(`https://api.huobi.pro/market/detail/merged?symbol=${symbol}`);
             const data = await response.json();
-            if (data.price) {
+            if (data.status === 'ok' && data.tick) {
               return {
-                symbol: symbol.split('-')[0],
-                price: parseFloat(data.price),
-                exchange: 'Coinbase',
+                symbol: symbol.replace('usdt', '').toUpperCase(),
+                price: parseFloat(data.tick.close),
+                exchange: 'Huobi',
               };
             }
             return null;
           } catch (error) {
-            console.error(`Error fetching ${symbol} from Coinbase:`, error);
+            console.error(`Error fetching ${symbol} from Huobi:`, error);
             return null;
           }
         })
       );
       return prices.filter(price => price !== null);
     } catch (error) {
-      console.error('Coinbase fetch error:', error);
+      console.error('Huobi fetch error:', error);
       return [];
     }
-  };
-  
-  export default fetchCoinbasePrices;
-  
+};
+
+export default fetchHuobiPrices;
