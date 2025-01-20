@@ -9,6 +9,9 @@ import binanceLogo from '../assets/binance.svg';
 import bitfinexLogo from '../assets/Bitfinex-Logo.wine.svg';
 import coinbaseLogo from '../assets/Coinbase.svg';
 import geminiLogo from '../assets/gemini.png';
+import img1 from '../assets/img1.png';
+import img2 from '../assets/img2.png';
+import img3 from '../assets/img3.png';
 
 const LandingPage = () => {
   const [darkMode, setDarkMode] = useState(true);
@@ -89,6 +92,93 @@ const LandingPage = () => {
       </section>
 
       <Exchanges exchanges={exchanges} />
+
+      {/* arbitrage exp sec */}
+    <section className="arbitrage-section">
+      {/* Introduction Section */}
+      <div className="content-block">
+        <div className="text-content">
+          <h2>What is Crypto Arbitrage?</h2>
+          <p>
+            Crypto arbitrage is a trading strategy that takes advantage of price differences 
+            for the same cryptocurrency across different exchanges. This price disparity 
+            creates an opportunity for traders to profit by buying low on one exchange 
+            and selling high on another.
+          </p>
+          <p>
+            This strategy is considered relatively low-risk compared to traditional crypto 
+            trading, as it capitalizes on existing price differences rather than speculating 
+            on future price movements.
+          </p>
+        </div>
+        <div className="image-container">
+          <div className="image-card">
+            <img 
+              src="img1"
+              alt="Crypto arbitrage concept visualization"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Buy Low Section */}
+      <div className="content-block reverse">
+        <div className="text-content">
+          <h3>Step 1: Buy Low</h3>
+          <p>
+            The first step in crypto arbitrage is identifying exchanges where a 
+            particular cryptocurrency is trading at a lower price. Advanced algorithms 
+            and trading tools continuously monitor multiple exchanges to spot these 
+            opportunities.
+          </p>
+          <p>
+            Speed is crucial in this step, as price differences can exist for very 
+            short periods. Having accounts pre-funded on multiple exchanges allows 
+            for quick execution when opportunities arise.
+          </p>
+        </div>
+        <div className="image-container">
+          <div className="image-card">
+            <img 
+              src="img2"
+              alt="Buying cryptocurrency at lower price"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Profit Through Multiple Trades Section */}
+      <div className="content-block">
+        <div className="text-content">
+          <h3>Step 2: Maximize Profits Through Multiple Trades</h3>
+          <p>
+            Once you've purchased cryptocurrency at a lower price, the next step is 
+            transferring and selling it on exchanges where it's trading at a higher 
+            price. This process can be repeated multiple times to compound profits.
+          </p>
+          <p>
+            Successful arbitrage traders often run multiple trades simultaneously, 
+            taking advantage of price differences across various cryptocurrency pairs 
+            and exchanges. This approach helps maximize potential returns while 
+            diversifying risk.
+          </p>
+          <ul>
+            <li>Monitor multiple exchanges simultaneously</li>
+            <li>Execute trades quickly when opportunities arise</li>
+            <li>Account for transaction fees and transfer times</li>
+            <li>Maintain sufficient balances across exchanges</li>
+          </ul>
+        </div>
+        <div className="image-container">
+          <div className="image-card">
+            <img 
+              src="img3"
+              alt="Multiple trading visualization"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
 
       {/* Features Section */}
       <section className="features" id="features">
