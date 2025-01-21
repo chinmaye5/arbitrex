@@ -1,110 +1,22 @@
-import React, { useEffect, useState } from 'react';
+// CryptoArbitrageTracker.jsx
+import React, { useState, useEffect } from 'react';
 import { RefreshCw } from 'lucide-react';
-import fetchBinancePrices from './apis/fetchBinancePrices'
-import fetchCoinbasePrices from './apis/fetchCoinbasePrices'
-import fetchHuobiPrices from './apis/fetchHuobiPrices';
-import fetchGeminiPrices from './apis/fetchGeminiPrices';
-import fetchBybitPrices from './apis/fetchBybitPrices';
-import fetchBitmartPrices from './apis/fetchBitmartPrices';
-import fetchKucoinPrices from './apis/fetchKucoinPrices';
-import fetchBitfinexPrices from './apis/fetchBitfinexPrices';
-import fetchOkxPrices from './apis/fetchOkxPrices';
-import fetchGateioPrices from './apis/fetchGateioPrices';
-
-import './Prices.css';
+import { fetchAllPrices } from './cryptoUtils';
+import "./Prices.css"
 
 const CryptoArbitrageTracker = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [sortConfig, setSortConfig] = useState({
+    field: null,
+    direction: 'desc'
+  });
 
-  const calculateArbitrage = (prices) => {
-    if (prices.length < 2) return 0;
-    const maxPrice = Math.max(...prices);
-    const minPrice = Math.min(...prices);
-    return ((maxPrice - minPrice) / minPrice * 100).toFixed(2);
-};
-
-
-const processPrices = (allPrices) => {
-    const groupedPrices = {};
-  
-    allPrices.forEach(item => {
-      if (!groupedPrices[item.symbol]) {
-        groupedPrices[item.symbol] = {
-          symbol: item.symbol,
-          exchanges: {},
-          prices: []
-        };
-      }
-      groupedPrices[item.symbol].exchanges[item.exchange] = item.price;
-      groupedPrices[item.symbol].prices.push(item.price);
-    });
-  
-    return Object.values(groupedPrices).map(item => {
-      // Find the highest and lowest prices
-      const highestPrice = Math.max(...item.prices);
-      const lowestPrice = Math.min(...item.prices);
-  
-      // Get the exchange names for highest and lowest prices
-      const highestPriceExchange = Object.entries(item.exchanges).find(([exchange, price]) => price === highestPrice)[0];
-      const lowestPriceExchange = Object.entries(item.exchanges).find(([exchange, price]) => price === lowestPrice)[0];
-  
-      return {
-        ...item,
-        arbitragePercent: calculateArbitrage(item.prices),
-        highestPrice,
-        lowestPrice,
-        highestPriceExchange, // Added highest price exchange
-        lowestPriceExchange  // Added lowest price exchange
-      };
-    });
-  };
-  
-
-  const fetchAllPrices = async () => {
+  const updatePrices = async () => {
     setLoading(true);
     try {
-      const [
-        binancePrices,
-        coinbasePrices,
-        huobiPrices,
-        geminiPrices,
-        bybitPrices,
-        bitmartPrices,
-        kucoinPrices,
-        bitfinexPrices,
-        okxPrices,
-        gateioPrices,
-        
-    ] = await Promise.all([
-        fetchBinancePrices(),
-        fetchCoinbasePrices(),
-        fetchHuobiPrices(),
-        fetchGeminiPrices(),
-        fetchBybitPrices(),
-        fetchBitmartPrices(),
-        fetchKucoinPrices(),
-        fetchBitfinexPrices(),
-        fetchOkxPrices(),
-        fetchGateioPrices(),
-    ]);
-    
-
-    const allPrices = [
-      ...binancePrices,
-      ...coinbasePrices,
-      ...huobiPrices,
-      ...geminiPrices,
-      ...bybitPrices,
-      ...bitmartPrices,
-      ...kucoinPrices,
-      ...bitfinexPrices,
-      ...okxPrices,
-      ...gateioPrices,
-    ];
-  
-      const processedData = processPrices(allPrices);
+      const processedData = await fetchAllPrices(sortConfig.field, sortConfig.direction);
       setData(processedData);
       setError(null);
     } catch (err) {
@@ -116,20 +28,22 @@ const processPrices = (allPrices) => {
   };
 
   useEffect(() => {
-    fetchAllPrices();
-    const interval = setInterval(fetchAllPrices, 10000);
+    updatePrices();
+    const interval = setInterval(updatePrices, 10000);
     return () => clearInterval(interval);
-  }, []);
+  }, [sortConfig]); // Add sortConfig as dependency
 
-  const sortData = (field) => {
-    const sorted = [...data].sort((a, b) => b[field] - a[field]);
-    setData(sorted);
+  const handleSort = (field) => {
+    setSortConfig(prevConfig => ({
+      field,
+      direction: prevConfig.field === field && prevConfig.direction === 'desc' ? 'asc' : 'desc'
+    }));
   };
 
   if (error) {
     return (
       <div>
-        <div >{error}</div>
+        <div>{error}</div>
       </div>
     );
   }
@@ -137,13 +51,12 @@ const processPrices = (allPrices) => {
   return (
     <div className="container-prices">
       <div className="header-prices">
-        <h1 className="title-prices">Crypto Arbitrage Opportunities</h1>
+        <h1 className="title-prices">Arbitrage Table</h1>
         <button
-          onClick={fetchAllPrices}
+          onClick={updatePrices}
           className="refresh-button-prices"
           disabled={loading}
         >
-          
           {loading ? 'Refreshing...' : 'Refresh'}
         </button>
       </div>
@@ -163,14 +76,26 @@ const processPrices = (allPrices) => {
               <th>Bitfinex Price</th>
               <th>OKX Price</th>
               <th>Gate.io Price</th>
-              <th onClick={() => sortData('lowestPrice')}>
-                Lowest <span className="sort-icon-prices">↕</span>
+              <th onClick={() => handleSort('lowestPrice')}>
+                Lowest {sortConfig.field === 'lowestPrice' && (
+                  <span className="sort-icon-prices">
+                    {sortConfig.direction === 'desc' ? '↓' : '↑'}
+                  </span>
+                )}
               </th>
-              <th onClick={() => sortData('highestPrice')}>
-                Highest <span className="sort-icon-prices">↕</span>
+              <th onClick={() => handleSort('highestPrice')}>
+                Highest {sortConfig.field === 'highestPrice' && (
+                  <span className="sort-icon-prices">
+                    {sortConfig.direction === 'desc' ? '↓' : '↑'}
+                  </span>
+                )}
               </th>
-              <th onClick={() => sortData('arbitragePercent')}>
-                Arbitrage % <span className="sort-icon-prices">↕</span>
+              <th onClick={() => handleSort('arbitragePercent')}>
+                Arbitrage % {sortConfig.field === 'arbitragePercent' && (
+                  <span className="sort-icon-prices">
+                    {sortConfig.direction === 'desc' ? '↓' : '↑'}
+                  </span>
+                )}
               </th>
             </tr>
           </thead>
@@ -201,13 +126,7 @@ const processPrices = (allPrices) => {
                   </span>
                 </td>
                 <td>
-                  <span
-                    className={
-                      crypto.arbitragePercent > 1
-                        ? 'arbitrage-high-prices'
-                        : ''
-                    }
-                  >
+                  <span className={crypto.arbitragePercent > 1 ? 'arbitrage-high-prices' : ''}>
                     {crypto.arbitragePercent}%
                   </span>
                 </td>
@@ -228,4 +147,3 @@ const processPrices = (allPrices) => {
 };
 
 export default CryptoArbitrageTracker;
-

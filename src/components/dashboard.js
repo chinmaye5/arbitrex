@@ -5,6 +5,7 @@ import { Moon, Sun, Menu, Home, LineChart, Settings,Newspaper } from 'lucide-rea
 import CryptoArbitrageTracker from './Prices';
 import CryptoNews from './News';
 import CryptoPricesDashboard from './test';
+import ArbitrageCards from './ArbitrageCards';
 import './Dashboard.css';
 
 // Content Components
@@ -138,7 +139,7 @@ const Dashboard = () => {
       <main className={`main-content ${!isSidebarOpen ? 'sidebar-closed' : ''}`}>
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard/overview" replace />} />
-          <Route path="/overview" element={<DashboardContent />} />
+          <Route path="/overview" element={<ArbitrageCards/>} />
           <Route path="/trading" element={<CryptoArbitrageTracker/>} />
           <Route path="/history" element={<CryptoNews />} />
           <Route path="/settings" element={<CryptoPricesDashboard></CryptoPricesDashboard>} />

@@ -1,69 +1,79 @@
+/* Container for the exchanges section */
 .exchanges-container {
   text-align: center;
   padding: 20px;
+  margin: 0 auto; /* Center the container */
+  max-width: 1620px; /* Limit the maximum width */
+  box-sizing: border-box; /* Include padding in width calculation */
 }
 
+/* Grid layout for exchange cards */
 .exchanges-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjusts column count automatically */
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Dynamic column count */
+  gap: 20px; /* Consistent spacing between grid items */
   margin-top: 20px;
-  justify-items: center; /* Center aligns items */
+  justify-items: center; /* Center-align grid items */
 }
 
-.exchange-card {
+/* Individual exchange cards */
+.exchanges-card {
   padding: 15px;
   text-align: center;
-  width: 100%; /* Make the card adapt to available space */
-  max-width: 270px; /* Set a max width for cards */
+  width: 100%; /* Full width inside grid */
+  max-width: 270px; /* Limit the width of cards */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
+  border-radius: 8px; /* Rounded corners for better aesthetics */
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth hover effect */
 }
 
-.exchange-card:hover {
+.exchangse-card:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.exchange-logo {
+/* Logos inside exchange cards */
+.exchanges-logo {
   height: 100px;
-  max-width: 100%; /* Ensures logo doesn't exceed card width */
-  object-fit: contain; /* Keeps logo proportions */
+  max-width: 100%; /* Prevent logos from overflowing */
+  object-fit: contain; /* Maintain logo aspect ratio */
   margin-bottom: 10px;
 }
 
-.exchange-name {
+/* Exchange names */
+.exchanges-name {
   font-size: 16px;
   font-weight: bold;
-  color: #1d4ed8;
+  color: #1d4ed8; /* Primary color for emphasis */
+  margin: 0; /* Remove extra spacing */
 }
 
-/* Add responsiveness for smaller devices */
+/* Responsive adjustments for smaller screens */
 @media screen and (max-width: 768px) {
   .exchanges-grid {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Adjust for smaller screens */
-    gap: 15px; /* Reduce gap for compact view */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Adapt to smaller screens */
+    gap: 15px; /* Reduce spacing */
   }
 
-  .exchange-logo {
-    height: 80px; /* Smaller logos for smaller screens */
+  .exchanges-logo {
+    height: 80px; /* Smaller logos for compact view */
   }
 
-  .exchange-name {
-    font-size: 14px; /* Adjust font size for smaller devices */
+  .exchanges-name {
+    font-size: 14px; /* Adjust text size */
   }
 }
 
 @media screen and (max-width: 480px) {
   .exchanges-container {
-    padding: 15px; /* Reduce padding for very small devices */
+    padding: 15px; /* Compact padding */
   }
 
-  .exchange-card {
-    max-width: 200px; /* Compact card size for narrow screens */
+  .exchanges-card {
+    max-width: 200px; /* Smaller card size for narrow screens */
   }
 
-  .exchange-name {
-    font-size: 12px; /* Further reduce font size */
+  .exchanges-name {
+    font-size: 12px; /* Reduce text size further */
   }
 }

@@ -7,13 +7,13 @@ const Exchanges = ({ exchanges }) => {
       <h2>Available Exchanges</h2>
       <div className="exchanges-grid">
         {exchanges.map((exchange, index) => (
-          <div className="exchange-card" key={index}>
+          <div className="exchanges-card" key={index}>
             <img
               src={exchange.logo}
               alt={`${exchange.name} logo`}
-              className="exchange-logo"
+              className="exchanges-logo"
             />
-            <p className="exchange-name">{exchange.name}</p>
+            <p className="exchanges-name">{exchange.name}</p>
           </div>
         ))}
       </div>

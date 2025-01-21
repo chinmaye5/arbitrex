@@ -92,7 +92,8 @@
   
   /* Header Styles */
   .header {
-    position: fixed;
+    position: fixed; /* or sticky */
+    z-index: 1000;
     top: 0;
     left: 0;
     right: 0;
@@ -195,46 +196,124 @@
   }
   /* Hero Section */
   .hero {
-    padding: var(--space-2xl) 0;
-    margin-top: 4.5rem;
-    height: 400px;
+    padding-top: 150px;
+    min-height: 60vh;
+    margin-top: 60px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+  }
+  
+  .hero-content {
+    text-align: center;
   }
   
   .hero-title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 800;
-    line-height: 1.1;
-    padding: 10px;
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: var(--light-text);
     margin-bottom: var(--space-lg);
-    background: linear-gradient(135deg, var(--primary-color), #60A5FA);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    line-height: 1.2;
+  }
+  
+  .hero-title .highlight {
+    color: var(--primary-color);
+    position: relative;
+  }
+  
+  .hero-title .highlight::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    transform: scaleX(0);
+    transition: transform var(--transition-normal);
+  }
+  
+  .hero-title:hover .highlight::after {
+    transform: scaleX(1);
   }
   
   .hero-subtitle {
-    font-size: clamp(1.125rem, 2vw, 1.5rem);
+    font-size: 1.25rem;
     color: var(--secondary-color);
-    margin-bottom: var(--space-xl);
+    max-width: 800px;
+    margin: 0 auto var(--space-xl);
+    line-height: 1.6;
   }
   
-  .cta-button {
-    padding: var(--space-md) var(--space-2xl);
-    border-radius: var(--radius-full);
-    border: none;
+  .cta-container {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    margin-bottom: var(--space-2xl);
+  }
+  
+  .primary-button {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
     background-color: var(--primary-color);
+    text-decoration: none;
     color: white;
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-md);
     font-weight: 600;
-    font-size: 1.125rem;
-    cursor: pointer;
-    transition: transform var(--transition-fast),
-                background-color var(--transition-fast);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-                0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: background-color var(--transition-normal);
   }
   
-  .cta-button:hover {
+  .primary-button:hover {
     background-color: var(--primary-hover);
-    transform: translateY(-2px);
+  }
+  
+  /* Dark theme */
+  @media (prefers-color-scheme: dark) {
+  
+    .hero-title {
+      color: var(--dark-text);
+    }
+  
+    .stat-item,
+    .feature-item {
+      background-color: var(--dark-card);
+    }
+  
+    .feature-item h3 {
+      color: var(--dark-text);
+    }
+  }
+
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2.5rem;
+    }
+  
+    .stats-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .cta-container {
+      flex-direction: column;
+    }
+  
+    .stat-item {
+      width: 100%;
+      max-width: 300px;
+    }
   }
 
   /* arbitrage explain section */
@@ -243,7 +322,6 @@
     max-width: 1500px;
     margin: 0 auto;
     font-family: var(--font-primary);
-    background-color: var(--light-bg);
     color: var(--light-text);
   }
   
@@ -271,13 +349,7 @@
     transition: color var(--transition-normal);
   }
   
-  .text-content h3 {
-    font-size: 1.75rem;
-    font-weight: bold;
-    color: var(--light-text);
-    margin-bottom: var(--space-md);
-    transition: color var(--transition-normal);
-  }
+ 
   
   .text-content p {
     font-size: 1.125rem;
@@ -323,27 +395,20 @@
   
   .image-card img {
     width: 100%;
-    max-width: 500px;
     height: auto;
     border-radius: var(--radius-md);
   }
   
   /* Dark Theme */
   @media (prefers-color-scheme: dark) {
-    .arbitrage-section {
-      background-color: var(--dark-bg);
-      color: var(--dark-text);
-    }
+
   
     .text-content h2,
     .text-content h3 {
-      color: var(--dark-text);
+      color: #1d4ed8;
     }
   
-    .text-content p,
-    .text-content li {
-      color: var(--secondary-color);
-    }
+    
   
     .image-card {
       background-color: var(--dark-card);
@@ -357,134 +422,236 @@
   
   
   /* Features Section */
-  .features {
-    padding: var(--space-2xl) 0;
-  }
-  
-  .section-title {
-    font-size: 2.25rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: var(--space-2xl);
-  }
-  
+  /* Features container */
+.features {
+  padding: var(--space-2xl) 0;
+  max-width: 1620px; /* Set the maximum width */
+  margin: 0 auto; /* Center the container horizontally */
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Section title */
+.section-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+  line-height: 1.3; /* Improve readability */
+}
+
+/* Features grid layout */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-xl); /* Maintain consistent spacing */
+  align-items: start; /* Align cards to the top */
+}
+
+/* Individual feature card */
+.feature-card {
+  padding: var(--space-xl);
+  border-radius: var(--radius-lg);
+  background-color: var(--light-card);
+  border: 1px solid var(--light-border);
+  transition: transform var(--transition-normal), 
+              box-shadow var(--transition-normal);
+  text-align: center; /* Center content within cards */
+}
+
+.dark .feature-card {
+  background-color: var(--dark-card);
+  border-color: var(--dark-border);
+}
+
+/* Hover effects for feature card */
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 
+              0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Feature card icon */
+.feature-icon {
+  color: var(--primary-color);
+  font-size: 2rem; /* Ensure icons are visually prominent */
+  margin-bottom: var(--space-md);
+}
+
+/* Feature card title */
+.feature-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+  color: var(--text-primary); /* Ensure compatibility with light/dark mode */
+}
+
+/* Feature card description */
+.feature-desc {
+  color: var(--secondary-color);
+  font-size: 0.9375rem; /* Slightly smaller font for descriptions */
+  line-height: 1.5; /* Improve readability */
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
   .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--space-xl);
+    gap: var(--space-lg); /* Reduce spacing for smaller screens */
   }
-  
+
   .feature-card {
-    padding: var(--space-xl);
-    border-radius: var(--radius-lg);
-    background-color: var(--light-card);
-    border: 1px solid var(--light-border);
-    transition: transform var(--transition-normal),
-                box-shadow var(--transition-normal);
+    padding: var(--space-lg); /* Adjust padding for compact view */
   }
-  
-  .dark .feature-card {
-    background-color: var(--dark-card);
-    border-color: var(--dark-border);
+
+  .section-title {
+    font-size: 2rem; /* Scale down the title */
   }
-  
-  .feature-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-                0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+@media screen and (max-width: 480px) {
+  .features {
+    padding: var(--space-xl) 15px; /* Compact padding for narrow screens */
   }
-  
-  .feature-icon {
-    color: var(--primary-color);
-    margin-bottom: var(--space-md);
-  }
-  
+
   .feature-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: var(--space-sm);
+    font-size: 1.125rem; /* Adjust title size */
   }
-  
+
   .feature-desc {
-    color: var(--secondary-color);
+    font-size: 0.875rem; /* Scale down description font size */
   }
+}
+
   
   /* Pricing Section */
-  .pricing {
-    padding: var(--space-2xl) 0;
-  }
-  
+  /* Pricing container */
+.pricing {
+  padding: var(--space-2xl) 0;
+  max-width: 1625px; /* Limit the maximum width */
+  margin: 0 auto; /* Center the container horizontally */
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Pricing grid layout */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-xl); /* Maintain consistent spacing between cards */
+  align-items: stretch; /* Ensure all cards have equal height */
+}
+
+/* Individual pricing card */
+.pricing-card {
+  padding: var(--space-xl);
+  border-radius: var(--radius-lg);
+  background-color: var(--light-card);
+  border: 1px solid var(--light-border);
+  text-align: center; /* Center-align content inside cards */
+  transition: transform var(--transition-normal),
+              box-shadow var(--transition-normal);
+}
+
+.dark .pricing-card {
+  background-color: var(--dark-card);
+  border-color: var(--dark-border);
+}
+
+/* Hover effects for pricing cards */
+.pricing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+              0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Plan title */
+.plan-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+  color: var(--text-primary); /* Adapt to light/dark mode */
+}
+
+/* Plan price */
+.plan-price {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  margin-bottom: var(--space-lg);
+}
+
+.plan-price span {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--secondary-color);
+}
+
+/* Plan features */
+.plan-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-xl) 0;
+}
+
+.plan-feature {
+  padding: var(--space-sm) 0;
+  color: var(--secondary-color);
+  font-size: 0.9375rem; /* Slightly smaller font for features */
+  line-height: 1.5; /* Improve readability */
+}
+
+/* Plan button */
+.plan-button {
+  width: 100%;
+  padding: var(--space-md);
+  border-radius: var(--radius-full);
+  border: none;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.plan-button:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
   .pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--space-xl);
+    gap: var(--space-lg); /* Reduce spacing for smaller screens */
   }
-  
+
   .pricing-card {
-    padding: var(--space-xl);
-    border-radius: var(--radius-lg);
-    background-color: var(--light-card);
-    border: 1px solid var(--light-border);
-    transition: transform var(--transition-normal),
-                box-shadow var(--transition-normal);
+    padding: var(--space-lg); /* Adjust padding for compact view */
   }
-  
-  .dark .pricing-card {
-    background-color: var(--dark-card);
-    border-color: var(--dark-border);
-  }
-  
-  .pricing-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-                0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  }
-  
+
   .plan-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: var(--space-sm);
+    font-size: 1.25rem; /* Scale down title size */
   }
-  
+
   .plan-price {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: var(--primary-color);
-    margin-bottom: var(--space-lg);
+    font-size: 2rem; /* Adjust price font size */
   }
-  
+
   .plan-price span {
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--secondary-color);
+    font-size: 0.875rem; /* Adjust smaller text */
   }
-  
-  .plan-features {
-    list-style: none;
-    margin-bottom: var(--space-xl);
+}
+
+@media screen and (max-width: 480px) {
+  .pricing {
+    padding: var(--space-xl) 15px; /* Compact padding for narrow screens */
   }
-  
+
   .plan-feature {
-    padding: var(--space-sm) 0;
-    color: var(--secondary-color);
+    font-size: 0.875rem; /* Further reduce feature font size */
   }
-  
+
   .plan-button {
-    width: 100%;
-    padding: var(--space-md);
-    border-radius: var(--radius-full);
-    border: none;
-    background-color: var(--primary-color);
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color var(--transition-fast);
+    padding: var(--space-sm); /* Adjust button size */
   }
-  
-  .plan-button:hover {
-    background-color: var(--primary-hover);
-  }
-  
+}
+
   /* Footer */
   .footer {
     padding: var(--space-2xl) 0;

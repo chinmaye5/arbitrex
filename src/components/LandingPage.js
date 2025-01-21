@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Sun, Moon, AlertCircle, Shield, Bell, ArrowRight, Facebook, Twitter, Linkedin } from 'lucide-react';
+import { Sun, Moon, AlertCircle, Shield, Bell, ArrowRight, Facebook, Twitter, Linkedin,Sparkles, LineChart } from 'lucide-react';
 import './LandingPage.css';
 import Exchanges from './Exchanges';
 import { useNavigate } from "react-router-dom";
@@ -44,7 +44,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
-    navigate("/auth"); // Navigate to the AuthForm component
+    navigate("/auth");
   };
 
 
@@ -75,46 +75,56 @@ const LandingPage = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="hero">
-        <div className="container text-center">
+      <section className="hero" id='home'>
+      <div className="hero-container">
+        <div className="hero-content">
           <h1 className="hero-title animate-on-scroll hidden">
-            Maximize Your Crypto Gains with Arbitrex
+          <span className="highlight">Turn Market Inefficiencies Into Profitable Opportunities</span>
           </h1>
+          
           <p className="hero-subtitle animate-on-scroll hidden">
-            Find real-time arbitrage opportunities across exchanges
+            Join thousands of traders using Arbitrex to discover and execute cross-exchange 
+            arbitrage opportunities in real-time
           </p>
-          <Link to="/dashboard">
-      <button className="cta-button animate-on-scroll hidden">
-        Get Started
-      </button>
-    </Link>
+
+          <div className="cta-container animate-on-scroll hidden">
+            <Link to="/dashboard" className="primary-button">
+              Start Trading Now
+              <ArrowRight size={20} />
+            </Link>
+          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
       <Exchanges exchanges={exchanges} />
 
       {/* arbitrage exp sec */}
-    <section className="arbitrage-section">
+    <section className="arbitrage-section" id="about">
       {/* Introduction Section */}
       <div className="content-block">
         <div className="text-content">
           <h2>What is Crypto Arbitrage?</h2>
           <p>
+          <b>
             Crypto arbitrage is a trading strategy that takes advantage of price differences 
             for the same cryptocurrency across different exchanges. This price disparity 
             creates an opportunity for traders to profit by buying low on one exchange 
             and selling high on another.
+          </b>
           </p>
           <p>
+          <b>
             This strategy is considered relatively low-risk compared to traditional crypto 
             trading, as it capitalizes on existing price differences rather than speculating 
             on future price movements.
+          </b>
           </p>
         </div>
         <div className="image-container">
           <div className="image-card">
             <img 
-              src="img1"
+              src={img1}
               alt="Crypto arbitrage concept visualization"
             />
           </div>
@@ -124,23 +134,27 @@ const LandingPage = () => {
       {/* Buy Low Section */}
       <div className="content-block reverse">
         <div className="text-content">
-          <h3>Step 1: Buy Low</h3>
+          <h2>Step 1: Buy Low</h2>
           <p>
+          <b>
             The first step in crypto arbitrage is identifying exchanges where a 
             particular cryptocurrency is trading at a lower price. Advanced algorithms 
             and trading tools continuously monitor multiple exchanges to spot these 
             opportunities.
+          </b>
           </p>
           <p>
+          <b>
             Speed is crucial in this step, as price differences can exist for very 
             short periods. Having accounts pre-funded on multiple exchanges allows 
             for quick execution when opportunities arise.
+          </b>
           </p>
         </div>
         <div className="image-container">
           <div className="image-card">
             <img 
-              src="img2"
+              src={img2}
               alt="Buying cryptocurrency at lower price"
             />
           </div>
@@ -150,17 +164,21 @@ const LandingPage = () => {
       {/* Profit Through Multiple Trades Section */}
       <div className="content-block">
         <div className="text-content">
-          <h3>Step 2: Maximize Profits Through Multiple Trades</h3>
+          <h2>Step 2: Maximize Profits Through Multiple Trades</h2>
           <p>
+            <b>
             Once you've purchased cryptocurrency at a lower price, the next step is 
             transferring and selling it on exchanges where it's trading at a higher 
             price. This process can be repeated multiple times to compound profits.
+            </b>
           </p>
           <p>
+            <b>
             Successful arbitrage traders often run multiple trades simultaneously, 
             taking advantage of price differences across various cryptocurrency pairs 
             and exchanges. This approach helps maximize potential returns while 
             diversifying risk.
+            </b>
           </p>
           <ul>
             <li>Monitor multiple exchanges simultaneously</li>
@@ -172,7 +190,7 @@ const LandingPage = () => {
         <div className="image-container">
           <div className="image-card">
             <img 
-              src="img3"
+              src={img3}
               alt="Multiple trading visualization"
             />
           </div>
@@ -227,7 +245,7 @@ const LandingPage = () => {
       </section>
 
       {/* Footer */}
-      <footer className="footer">
+      <footer className="footer" id="contact">
         <div className="container">
           <div className="footer-section">
             <h4 className="footer-title">Arbitrex</h4>
