@@ -1,7 +1,7 @@
 // CryptoArbitrageTracker.jsx
 import React, { useState, useEffect } from 'react';
 import { RefreshCw } from 'lucide-react';
-import { fetchAllPrices } from './cryptoUtils';
+import { fetchAllPrices } from '../apis/cryptoUtils';
 import "./Prices.css"
 
 const CryptoArbitrageTracker = () => {

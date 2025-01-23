@@ -1,13 +1,13 @@
-import fetchBinancePrices from './apis/fetchBinancePrices'
-import fetchCoinbasePrices from './apis/fetchCoinbasePrices'
-import fetchHuobiPrices from './apis/fetchHuobiPrices';
-import fetchGeminiPrices from './apis/fetchGeminiPrices';
-import fetchBybitPrices from './apis/fetchBybitPrices';
-import fetchBitmartPrices from './apis/fetchBitmartPrices';
-import fetchKucoinPrices from './apis/fetchKucoinPrices';
-import fetchBitfinexPrices from './apis/fetchBitfinexPrices';
-import fetchOkxPrices from './apis/fetchOkxPrices';
-import fetchGateioPrices from './apis/fetchGateioPrices';
+import fetchBinancePrices from './fetchBinancePrices'
+import fetchCoinbasePrices from './fetchCoinbasePrices'
+import fetchHuobiPrices from './fetchHuobiPrices';
+import fetchGeminiPrices from './fetchGeminiPrices';
+import fetchBybitPrices from './fetchBybitPrices';
+import fetchBitmartPrices from './fetchBitmartPrices';
+import fetchKucoinPrices from './fetchKucoinPrices';
+import fetchBitfinexPrices from './fetchBitfinexPrices';
+import fetchOkxPrices from './fetchOkxPrices';
+import fetchGateioPrices from './fetchGateioPrices';
 // cryptoUtils.js
 export const calculateArbitrage = (prices) => {
     if (prices.length < 2) return 0;

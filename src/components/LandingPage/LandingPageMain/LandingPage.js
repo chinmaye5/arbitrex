@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Sun, Moon, AlertCircle, Shield, Bell, ArrowRight, Facebook, Twitter, Linkedin,Sparkles, LineChart } from 'lucide-react';
 import './LandingPage.css';
-import Exchanges from './Exchanges';
+import Exchanges from '../Exchanges/Exchanges';
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import binanceLogo from '../assets/binance.svg';
-import bitfinexLogo from '../assets/Bitfinex-Logo.wine.svg';
-import coinbaseLogo from '../assets/Coinbase.svg';
-import geminiLogo from '../assets/gemini.png';
-import img1 from '../assets/img1.png';
-import img2 from '../assets/img2.png';
-import img3 from '../assets/img3.png';
+import binanceLogo from '../../../assets/binance.svg'
+import bitfinexLogo from '../../../assets/Bitfinex-Logo.wine.svg';
+import coinbaseLogo from '../../../assets/Coinbase.svg';
+import geminiLogo from '../../../assets/gemini.png';
+import img1 from '../../../assets/img1.png';
+import img2 from '../../../assets/img2.png';
+import img3 from '../../../assets/img3.png';
 
 const LandingPage = () => {
   const [darkMode, setDarkMode] = useState(true);

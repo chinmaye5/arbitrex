@@ -2,10 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
 import { Moon, Sun, Menu, Home, LineChart, Settings,Newspaper } from 'lucide-react';
-import CryptoArbitrageTracker from './Prices';
-import CryptoNews from './News';
-import CryptoPricesDashboard from './test';
-import ArbitrageCards from './ArbitrageCards';
+import CryptoArbitrageTracker from '../Prices/Prices';
+import CryptoNews from '../News/News';
+
+import CryptoPriceCards from '../ArbitrageCard/ArbitrageCards';
 import './Dashboard.css';
 
 // Content Components
@@ -103,10 +103,10 @@ const Dashboard = () => {
           <Link 
             to="/" 
             style={{ 
-              textDecoration: 'none',  // Removes underline
-              color: 'inherit',        // Inherits the color from the parent
-              fontWeight: 'inherit',   // Inherits the font weight from the parent
-              display: 'inline'        // Keeps it inline with surrounding elements
+              textDecoration: 'none',  
+              color: 'inherit',        
+              fontWeight: 'inherit',   
+              display: 'inline'      
             }}
           >
             ARBITREX
@@ -139,10 +139,10 @@ const Dashboard = () => {
       <main className={`main-content ${!isSidebarOpen ? 'sidebar-closed' : ''}`}>
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard/overview" replace />} />
-          <Route path="/overview" element={<ArbitrageCards/>} />
+          <Route path="/overview" element={<CryptoPriceCards/>} />
           <Route path="/trading" element={<CryptoArbitrageTracker/>} />
           <Route path="/history" element={<CryptoNews />} />
-          <Route path="/settings" element={<CryptoPricesDashboard></CryptoPricesDashboard>} />
+          <Route path="/settings" element={<SettingsContent/>} />
         </Routes>
       </main>
     </div>

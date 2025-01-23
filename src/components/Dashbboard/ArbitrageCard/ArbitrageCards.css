@@ -1,0 +1,145 @@
+.crypto-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #1d4ed8;
+  text-align: center;
+}
+
+.crypto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.crypto-card {
+  border-radius: 9px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  border: 2px solid #7086c1;
+}
+
+.crypto-card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 8px 25px rgba(2, 215, 226, 0.432);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+/* Previous CSS remains the same, adding these new styles */
+.arbitrage-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: #2563eb;
+  color: white;
+}
+
+.fire-gif {
+  width: 25px;
+  height: 25px;
+  margin-left: 5px;
+}
+
+.symbol-badge {
+  background: #2563eb;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: white;
+}
+
+.price-comparison {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.highest-price, .lowest-price {
+  width: 48%;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.highest-price {
+  background: #dc2626;
+}
+
+.lowest-price {
+  background: rgb(88, 194, 88);
+}
+
+.price-label {
+  font-size: 0.875rem;
+  margin-bottom: 5px;
+}
+
+.price-value {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.exchange {
+  display: block;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+
+.arbitrage-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.arbitrage-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: #2563eb;
+  color: white;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.125rem;
+}
+
+.error {
+  text-align: center;
+  padding: 40px;
+  color: #dc2626;
+}
+
+@media (max-width: 768px) {
+  .crypto-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .crypto-container {
+    padding: 10px;
+  }
+}
