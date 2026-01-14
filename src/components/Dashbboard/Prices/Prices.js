@@ -31,7 +31,7 @@ const CryptoArbitrageTracker = () => {
     updatePrices();
     const interval = setInterval(updatePrices, 10000);
     return () => clearInterval(interval);
-  }, [sortConfig]); // Add sortConfig as dependency
+  }, [sortConfig]);
 
   const handleSort = (field) => {
     setSortConfig(prevConfig => ({
